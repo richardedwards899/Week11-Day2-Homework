@@ -2,6 +2,9 @@ var initialise = function(){
 
   var container = document.getElementById('main-map');
   var london = { lat: 51.50, lng: -0.127 }
+  // var chicago = { lat: 52.50, lng: -0.127 }
+  var chicago = { lat: 41.87, lng: -87.63 }
+
   var mainMap = new MapWrapper(container, london, 10);
 
   var londonDescription =
@@ -10,17 +13,14 @@ var initialise = function(){
     "amazing food. You can't live there, unfortunately, because it costs"+
     " too much.</p>";
 
-  var infowindow = new google.maps.InfoWindow({
-    content: londonDescription
-  });
+  mainMap.addMarker(london, londonDescription);
+  mainMap.addMapClickEvent();
 
-  var marker = mainMap.addMarker(london);
-
-  marker.addListener('click', function() {
-    infowindow.open(mainMap, marker);
-  });
-
-  mainMap.addClickEvent();
+  var button = document.querySelector("input");
+  button.addEventListener('click', function(){
+    console.log("Let's go to Chicago!");
+    mainMap.setCenter(chicago);
+  })
 }
 
 window.addEventListener('load', initialise);
